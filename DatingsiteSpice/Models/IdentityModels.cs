@@ -16,6 +16,7 @@ namespace DatingsiteSpice.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public int MyProperty { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
