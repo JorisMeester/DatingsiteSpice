@@ -16,37 +16,7 @@ namespace DatingsiteSpice.Models
             // Add custom user claims here
             return userIdentity;
         }
-        public string Nickname { get; set; }
-        public GeslachtEnum Geslacht { get; set; }
-        public double Lengte { get; set; }
-        public EtniciteitEnum Etniciteit { get; set; }
-        public string Woonplaats { get; set; }
-        public OpleidingsniveauEnum Opleidingsniveau { get; set; }
-        public string Interesses { get; set; }
-        public string Afbeelding { get; set; }
-        public string FotoAlbum { get; set; }
-
-        public enum GeslachtEnum
-        {
-            Man,
-            Vrouw,
-
-            Onbekend
-        }
-
-        public enum EtniciteitEnum
-        {
-            Aziatisch,
-
-        }
-
-        public enum OpleidingsniveauEnum
-        {
-            Man,
-            Vrouw,
-
-            Onbekend
-        }
+        
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -60,5 +30,7 @@ namespace DatingsiteSpice.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<DatingsiteSpice.Models.Profile> Profiles { get; set; }
     }
 }

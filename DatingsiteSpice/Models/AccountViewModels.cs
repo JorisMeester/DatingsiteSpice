@@ -79,6 +79,41 @@ namespace DatingsiteSpice.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        //[Required]
+        //[Display(Name = "Weergavenaam")]
+        //public string Nickname { get; set; }
+
+        //[Required]
+        //[Display(Name = "Geslacht")]
+        //public GenderEnum Gender { get; set; }
+
+        //[Required]
+        //[Display(Name = "Interesse")]
+        //public PreferenceEnum Preference { get; set; }
+
+        //[Required]
+        //[Display(Name = "Geboortedatum")]
+        //public string Birtdate { get; set; }
+
+        //[Display(Name = "Lengte")]
+        //public double Length { get; set; }
+
+        //[Display(Name = "Etniciteit")]
+        //public EtnicityEnum Etnicity { get; set; }
+
+        //[Display(Name = "Woonplaats")]
+        //public string City { get; set; }
+        
+        //[Display(Name = "Opleidingsniveau")]
+        //public EducationLevelEnum EducationLevel { get; set; }
+
+        //[Display(Name = "Interesses")]
+        //public string Interests { get; set; }
+
+        //[Required]
+        //[Display(Name = "Profilefoto")]
+        //public string Image { get; set; }
     }
 
     public class ResetPasswordViewModel

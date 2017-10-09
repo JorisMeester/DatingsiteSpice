@@ -58,6 +58,58 @@ namespace DatingsiteSpice.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class ChangeNicknameViewModel
+    {
+        [Required]
+        [Display(Name = "Weergavenaam")]
+        public string Nickname { get; set; }
+    }
+
+    public class ChangeGenderViewModel
+    {
+        [Required]
+        [Display(Name = "Geslacht")]
+        public GenderEnum Gender { get; set; }
+    }
+
+    public class ChangePreferenceViewModel
+    {
+        [Required]
+        [Display(Name = "Interesse")]
+        public PreferenceEnum Preference { get; set; }
+    }
+
+    public class ChangeBirthdateViewModel
+    {
+        [Required]
+        [Display(Name = "Geboortedatum")]
+        public string Birthdate { get; set; }
+    }
+
+    public class ChangeLengthViewModel
+    {
+        [Display(Name = "Lengte")]
+        public double Length { get; set; }
+    }
+
+    public class ChangeEtnicityViewModel
+    {
+        [Display(Name = "Etniciteit")]
+        public EtnicityEnum Etnicity { get; set; }
+    }
+
+    public class ChangeCityViewModel
+    {
+        [Display(Name = "Woonplaats")]
+        public string City { get; set; }
+    }
+
+    public class ChangeEducationLevelViewModel
+    {
+        [Display(Name = "Opleidingsniveau")]
+        public EducationLevelEnum EducationLevel { get; set; }
+    }
+
     public class AddPhoneNumberViewModel
     {
         [Required]
