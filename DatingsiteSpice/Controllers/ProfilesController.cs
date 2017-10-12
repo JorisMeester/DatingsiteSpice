@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DatingsiteSpice.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DatingsiteSpice.Controllers
 {
@@ -59,16 +61,18 @@ namespace DatingsiteSpice.Controllers
         }
 
         // GET: Profiles/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit()
         {
-            if (id == null)
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            if (currentUser == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = db.Profiles.Find(id);
+            Profile profile = db.Profiles.FirstOrDefault(p=>p.User.Id == currentUser.Id);
             if (profile == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Create");
             }
             return View(profile);
         }
