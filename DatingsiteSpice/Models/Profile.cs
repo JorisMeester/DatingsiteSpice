@@ -24,29 +24,31 @@ namespace DatingsiteSpice.Models
 
     public enum GenderEnum
     {
-        Man,
-        Vrouw,
-        Overige,
-        Onbekend
+        Male,
+        Female,
+        Other,
+        Unknown
     }
 
     public enum PreferenceEnum
     {
-        Mannen,
-        Vrouwen,
-        Beide,
-        Overig
+        Men,
+        Women,
+        Both,
+        Other
     }
 
     public enum EtnicityEnum
     {
-        Aziatisch,
+        Asian,
+        Alien,
+        Earth_Person
     }
 
     public enum EducationLevelEnum
     {
         MBO,
         HBO,
-        Universiteit
+        University
     }
 }

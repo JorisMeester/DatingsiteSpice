@@ -61,7 +61,7 @@ namespace DatingsiteSpice.Models
     public class ChangeNicknameViewModel
     {
         [Required]
-        [Display(Name = "Weergavenaam")]
+        [Display(Name = "Nickname")]
         public string Nickname { get; set; }
     }
 
@@ -82,31 +82,31 @@ namespace DatingsiteSpice.Models
     public class ChangeBirthdateViewModel
     {
         [Required]
-        [Display(Name = "Geboortedatum")]
+        [Display(Name = "Birthdate")]
         public string Birthdate { get; set; }
     }
 
     public class ChangeLengthViewModel
     {
-        [Display(Name = "Lengte")]
+        [Display(Name = "Length (in grams)")]
         public double Length { get; set; }
     }
 
     public class ChangeEtnicityViewModel
     {
-        [Display(Name = "Etniciteit")]
+        [Display(Name = "Etnicity")]
         public EtnicityEnum Etnicity { get; set; }
     }
 
     public class ChangeCityViewModel
     {
-        [Display(Name = "Woonplaats")]
+        [Display(Name = "City")]
         public string City { get; set; }
     }
 
     public class ChangeEducationLevelViewModel
     {
-        [Display(Name = "Opleidingsniveau")]
+        [Display(Name = "Education level")]
         public EducationLevelEnum EducationLevel { get; set; }
     }
 
