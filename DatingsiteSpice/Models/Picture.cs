@@ -7,7 +7,7 @@ namespace DatingsiteSpice.Models
 {
     public class Picture
     {
-        public int ID { get; set; }
-        public string Image { get; set; }
+        public int Id { get; set; }
+        public string Filename { get; set; }
     }
 }

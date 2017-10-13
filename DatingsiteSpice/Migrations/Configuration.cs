@@ -10,7 +10,6 @@ namespace DatingsiteSpice.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "DatingsiteSpice.Models.ApplicationDbContext";
         }
 
         protected override void Seed(DatingsiteSpice.Models.ApplicationDbContext context)

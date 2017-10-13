@@ -72,11 +72,11 @@ namespace DatingsiteSpice.Models
         public GenderEnum Gender { get; set; }
     }
 
-    public class ChangePreferenceViewModel
+    public class ChangeGenderInterestViewModel
     {
         [Required]
         [Display(Name = "Interesse")]
-        public PreferenceEnum Preference { get; set; }
+        public GenderInterestEnum GenderInterest { get; set; }
     }
 
     public class ChangeBirthdateViewModel
@@ -104,10 +104,10 @@ namespace DatingsiteSpice.Models
         public string City { get; set; }
     }
 
-    public class ChangeEducationLevelViewModel
+    public class ChangeEducationViewModel
     {
         [Display(Name = "Education level")]
-        public EducationLevelEnum EducationLevel { get; set; }
+        public EducationEnum Education { get; set; }
     }
 
     public class AddPhoneNumberViewModel

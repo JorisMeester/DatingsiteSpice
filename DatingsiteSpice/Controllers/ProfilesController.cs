@@ -49,7 +49,7 @@ namespace DatingsiteSpice.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nickname,Gender,Preference,Birthdate,Height,Ethnicity,City,EducationLevel,Interests,Image,PhotoAlbum")] Profile profile)
+        public ActionResult Create([Bind(Include = "Id,Nickname,Gender,GenderInterest,Birthdate,Height,Ethnicity,City,Education,Interests,ProfilePicture,PhotoAlbum")] Profile profile)
         {
             if (ModelState.IsValid)
             {
@@ -62,78 +62,89 @@ namespace DatingsiteSpice.Controllers
         }
 
         // GET: Profiles/Edit/5
-        public ActionResult Edit(Profile profile, HttpPostedFileBase imageUpload)
+        [Authorize]
+        public ActionResult Edit()
         {
+            // ingelogde user ophalen via usermanager
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             var currentUser = manager.FindById(User.Identity.GetUserId());
-            if (currentUser == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            profile = db.Profiles.FirstOrDefault(p=>p.User.Id == currentUser.Id);
+
+            // bijbehorend profiel ophalen uit de DB
+            Profile profile = db.Profiles.Include(p => p.ProfilePicture).SingleOrDefault(p => p.User.Id == currentUser.Id);
             if (profile == null)
             {
-                return RedirectToAction("Create");
+                // is er geen profiel, dan maken we een lege
+                profile = new Models.Profile();
             }
+
             return View(profile);
-
-            Profile storedProfile = db.Profiles.Where(p => p.User.Id == currentUser.Id).SingleOrDefault();
-
-            if (storedProfile == null)
-            {
-                storedProfile = profile;
-                profile.User = currentUser;
-                db.Profiles.Add(storedProfile);
-            }
-
-            storedProfile.Birthdate = profile.Birthdate;
-            storedProfile.City = profile.City;
-            storedProfile.EducationLevel = profile.EducationLevel;
-            storedProfile.Ethnicity = profile.Ethnicity;
-            storedProfile.Gender = profile.Gender;
-            storedProfile.Preference = profile.Preference;
-            storedProfile.Height = profile.Height;
-            storedProfile.Nickname = profile.Nickname;
-
-            if (imageUpload != null && imageUpload.ContentLength > 0)
-            {  // create directory
-                var uploadPath = Path.Combine(Server.MapPath("~/Content/Uploads"), storedProfile.ID.ToString());
-                Directory.CreateDirectory(uploadPath);
-
-                // create filename
-                string fileGuid = Guid.NewGuid().ToString();
-                string extension = Path.GetExtension(imageUpload.FileName);
-                string newFilename = fileGuid + extension;
-
-                // copy file
-                imageUpload.SaveAs(Path.Combine(uploadPath, newFilename));
-
-                // store in database
-                Picture pic = new Picture { Filename = newFilename };
-                storedProfile.Image = pic;
-                db.Pictures.Add(pic);
-            }
-            
-            db.SaveChanges();
-
-            return View(storedProfile);
         }
 
-        // POST: Profiles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nickname,Gender,Preference,Birthdate,Height,Ethnicity,City,EducationLevel,Interests,Image,PhotoAlbum")] Profile profile)
+        public ActionResult Edit(Profile profile, HttpPostedFileBase ImageUpload)
         {
+            // server side validatie van het model object
             if (ModelState.IsValid)
             {
-                db.Entry(profile).State = EntityState.Modified;
+                // ingelogde user ophalen via usermanager
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                var currentUser = manager.FindById(User.Identity.GetUserId());
+
+                // profiel dat bij de user hoort uit de DB halen
+                Profile storedProfile = db.Profiles.Include(p => p.ProfilePicture).SingleOrDefault(p => p.User.Id == currentUser.Id);
+
+                // geen profiel = nieuwe aanmaken en bewaren in de DB
+                if (storedProfile == null)
+                {
+                    storedProfile = profile;
+                    profile.User = currentUser;
+                    db.Profiles.Add(storedProfile);
+                }
+
+                // data overzetten van geposte object naar database object
+                storedProfile.Birthdate = profile.Birthdate;
+                storedProfile.City = profile.City;
+                storedProfile.Education = profile.Education;
+                storedProfile.Ethnicity = profile.Ethnicity;
+                storedProfile.Gender = profile.Gender;
+                storedProfile.GenderInterest = profile.GenderInterest;
+                storedProfile.Height = profile.Height;
+                storedProfile.Nickname = profile.Nickname;
+
+                // afbeelding verwerken
+                if (ImageUpload != null && ImageUpload.ContentLength > 0)
+                {
+                    // directory aanmaken
+                    var uploadPath = Path.Combine(Server.MapPath("~/Content/Uploads"), storedProfile.Id.ToString());
+                    Directory.CreateDirectory(uploadPath);
+
+                    // TODO: oude afbeelding verwijderen
+
+                    // bestandsnaam maken
+                    string fileGuid = Guid.NewGuid().ToString();
+                    string extension = Path.GetExtension(ImageUpload.FileName);
+                    string newFilename = fileGuid + extension;
+
+                    // bestand opslaan
+                    ImageUpload.SaveAs(Path.Combine(uploadPath, newFilename));
+
+                    // opslaan in database
+                    Picture pic = new Picture { Filename = newFilename };
+                    storedProfile.ProfilePicture = pic;
+                }
+
+                // alle wijzigingen opslaan in de DB
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return View(storedProfile);
             }
             return View(profile);
         }
+
 
         // GET: Profiles/Delete/5
         public ActionResult Delete(int? id)

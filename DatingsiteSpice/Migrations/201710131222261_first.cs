@@ -3,31 +3,60 @@ namespace DatingsiteSpice.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class first : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Profiels",
+                "dbo.Profiles",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Nickname = c.String(nullable: false),
+                        Gender = c.Int(nullable: false),
+                        GenderInterest = c.Int(nullable: false),
+                        Birthdate = c.DateTime(nullable: false),
+                        Height = c.Int(nullable: false),
+                        Ethnicity = c.Int(nullable: false),
+                        City = c.String(),
+                        Education = c.Int(nullable: false),
+                        Openness = c.Int(),
+                        Conscientiousness = c.Int(),
+                        Extraversion = c.Int(),
+                        Agreeableness = c.Int(),
+                        Neuroticism = c.Int(),
+                        ProfilePicture_Id = c.Int(),
+                        User_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Pictures", t => t.ProfilePicture_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
+                .Index(t => t.ProfilePicture_Id)
+                .Index(t => t.User_Id);
+            
+            CreateTable(
+                "dbo.Interests",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Nickname = c.String(),
-                        Gender = c.Int(nullable: false),
-                        Preference = c.Int(nullable: false),
-                        Birthdate = c.DateTime(nullable: false),
-                        Height = c.Double(nullable: false),
-                        Ethnicity = c.Int(nullable: false),
-                        City = c.String(),
-                        EducationLevel = c.Int(nullable: false),
                         Interests = c.String(),
-                        Image = c.String(),
-                        PhotoAlbum = c.String(),
-                        User_Id = c.String(maxLength: 128),
+                        Profile_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
-                .Index(t => t.User_Id);
+                .ForeignKey("dbo.Profiles", t => t.Profile_Id)
+                .Index(t => t.Profile_Id);
+            
+            CreateTable(
+                "dbo.Pictures",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Filename = c.String(),
+                        Profile_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Profiles", t => t.Profile_Id)
+                .Index(t => t.Profile_Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -102,23 +131,31 @@ namespace DatingsiteSpice.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Profiels", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Profiles", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Profiles", "ProfilePicture_Id", "dbo.Pictures");
+            DropForeignKey("dbo.Pictures", "Profile_Id", "dbo.Profiles");
+            DropForeignKey("dbo.Interests", "Profile_Id", "dbo.Profiles");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Profiels", new[] { "User_Id" });
+            DropIndex("dbo.Pictures", new[] { "Profile_Id" });
+            DropIndex("dbo.Interests", new[] { "Profile_Id" });
+            DropIndex("dbo.Profiles", new[] { "User_Id" });
+            DropIndex("dbo.Profiles", new[] { "ProfilePicture_Id" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.Profiels");
+            DropTable("dbo.Pictures");
+            DropTable("dbo.Interests");
+            DropTable("dbo.Profiles");
         }
     }
 }

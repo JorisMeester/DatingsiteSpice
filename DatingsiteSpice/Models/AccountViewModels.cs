@@ -90,7 +90,7 @@ namespace DatingsiteSpice.Models
 
         //[Required]
         //[Display(Name = "Interesse")]
-        //public PreferenceEnum Preference { get; set; }
+        //public GenderInterestEnum GenderInterest { get; set; }
 
         //[Required]
         //[Display(Name = "Geboortedatum")]
@@ -106,14 +106,14 @@ namespace DatingsiteSpice.Models
         //public string City { get; set; }
         
         //[Display(Name = "Opleidingsniveau")]
-        //public EducationLevelEnum EducationLevel { get; set; }
+        //public EducationEnum Education { get; set; }
 
         //[Display(Name = "Interesses")]
         //public string Interests { get; set; }
 
         //[Required]
         //[Display(Name = "Profilefoto")]
-        //public string Image { get; set; }
+        //public string ProfilePicture { get; set; }
     }
 
     public class ResetPasswordViewModel

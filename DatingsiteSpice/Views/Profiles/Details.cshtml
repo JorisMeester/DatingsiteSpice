@@ -27,11 +27,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Preference)
+            @Html.DisplayNameFor(model => model.GenderInterest)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Preference)
+            @Html.DisplayFor(model => model.GenderInterest)
         </dd>
 
         <dt>
@@ -67,11 +67,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EducationLevel)
+            @Html.DisplayNameFor(model => model.Education)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EducationLevel)
+            @Html.DisplayFor(model => model.Education)
         </dd>
 
         <dt>
@@ -83,24 +83,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Image)
+            @Html.DisplayNameFor(model => model.ProfilePicture)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhotoAlbum)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhotoAlbum)
+            @Html.DisplayFor(model => model.ProfilePicture)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

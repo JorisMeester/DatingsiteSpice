@@ -196,17 +196,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710061241579_InitialCreate.cs" />
-    <Compile Include="Migrations\201710061241579_InitialCreate.Designer.cs">
-      <DependentUpon>201710061241579_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710061321226_Made it better.cs" />
-    <Compile Include="Migrations\201710061321226_Made it better.Designer.cs">
-      <DependentUpon>201710061321226_Made it better.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710061347166_migration2.cs" />
-    <Compile Include="Migrations\201710061347166_migration2.Designer.cs">
-      <DependentUpon>201710061347166_migration2.cs</DependentUpon>
+    <Compile Include="Migrations\201710131222261_first.cs" />
+    <Compile Include="Migrations\201710131222261_first.Designer.cs">
+      <DependentUpon>201710131222261_first.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -283,7 +275,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="uploads\" />
+    <Folder Include="Content\Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -299,14 +291,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710061241579_InitialCreate.resx">
-      <DependentUpon>201710061241579_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710061321226_Made it better.resx">
-      <DependentUpon>201710061321226_Made it better.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710061347166_migration2.resx">
-      <DependentUpon>201710061347166_migration2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710131222261_first.resx">
+      <DependentUpon>201710131222261_first.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

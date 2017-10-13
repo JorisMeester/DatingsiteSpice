@@ -1,21 +1,20 @@
 ﻿@model DatingsiteSpice.Models.Profile
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit my profile";
 }
 
 <h2>Edit</h2>
-
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "Multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Profile</h4>
+        <h4>My profile</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Nickname, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -26,21 +25,20 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ProfilePicture, htmlAttributes: new { @class = "control-label col-md-2" })
 
-            @Html.HiddenFor(model => model.Image.ID)
-            @Html.HiddenFor(model => model.Image.Filename)
+
             <div class="col-md-10">
-                @if (Model.Image != null)
+                @if (Model.ProfilePicture != null)
                 {
-                    <br /><img src="~/Content/Uploads/@Model.ID/@Model.Image.Filename" class="image" /><br />
+                    @Html.HiddenFor(model => model.ProfilePicture.Id)
+                    @Html.HiddenFor(model => model.ProfilePicture.Filename)
+                    <br /><img src="~/Content/Uploads/@Model.Id/@Model.ProfilePicture.Filename" class="image" /><br />
                 }
                 <input type="file" name="ImageUpload" class="form-control" />
-                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.ProfilePicture, "", new { @class = "text-danger" })
             </div>
         </div>
-
-
 
         <div class="form-group">
             @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -51,10 +49,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Preference, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.GenderInterest, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Preference, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Preference, "", new { @class = "text-danger" })
+                @Html.EnumDropDownListFor(model => model.GenderInterest, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.GenderInterest, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -91,14 +89,12 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EducationLevel, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Education, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.EducationLevel, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.EducationLevel, "", new { @class = "text-danger" })
+                @Html.EnumDropDownListFor(model => model.Education, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Education, "", new { @class = "text-danger" })
             </div>
         </div>
-
-
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -106,12 +102,11 @@
             </div>
         </div>
     </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
