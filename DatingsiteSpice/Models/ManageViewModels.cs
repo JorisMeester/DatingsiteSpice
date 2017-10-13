@@ -86,16 +86,16 @@ namespace DatingsiteSpice.Models
         public string Birthdate { get; set; }
     }
 
-    public class ChangeLengthViewModel
+    public class ChangeHeightViewModel
     {
-        [Display(Name = "Length (in grams)")]
-        public double Length { get; set; }
+        [Display(Name = "Height (in grams)")]
+        public double Height { get; set; }
     }
 
-    public class ChangeEtnicityViewModel
+    public class ChangeEthnicityViewModel
     {
-        [Display(Name = "Etnicity")]
-        public EtnicityEnum Etnicity { get; set; }
+        [Display(Name = "Ethnicity")]
+        public EthnicityEnum Ethnicity { get; set; }
     }
 
     public class ChangeCityViewModel

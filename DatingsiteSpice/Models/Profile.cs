@@ -13,8 +13,8 @@ namespace DatingsiteSpice.Models
         public GenderEnum Gender { get; set; }
         public PreferenceEnum Preference { get; set; }
         public DateTime Birthdate { get; set; }
-        public double Length { get; set; }
-        public EtnicityEnum Etnicity { get; set; }
+        public double Height { get; set; }
+        public EthnicityEnum Ethnicity { get; set; }
         public string City { get; set; }
         public EducationLevelEnum EducationLevel { get; set; }
         public Interest Interests { get; set; }
@@ -38,7 +38,7 @@ namespace DatingsiteSpice.Models
         Other
     }
 
-    public enum EtnicityEnum
+    public enum EthnicityEnum
     {
         Asian,
         Alien,

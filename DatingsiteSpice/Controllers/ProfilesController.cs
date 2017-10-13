@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using DatingsiteSpice.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
 
 namespace DatingsiteSpice.Controllers
 {
@@ -48,7 +49,7 @@ namespace DatingsiteSpice.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nickname,Gender,Preference,Birthdate,Length,Etnicity,City,EducationLevel,Interests,Image,PhotoAlbum")] Profile profile)
+        public ActionResult Create([Bind(Include = "ID,Nickname,Gender,Preference,Birthdate,Height,Ethnicity,City,EducationLevel,Interests,Image,PhotoAlbum")] Profile profile)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +62,7 @@ namespace DatingsiteSpice.Controllers
         }
 
         // GET: Profiles/Edit/5
-        public ActionResult Edit()
+        public ActionResult Edit(Profile profile, HttpPostedFileBase imageUpload)
         {
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             var currentUser = manager.FindById(User.Identity.GetUserId());
@@ -69,12 +70,53 @@ namespace DatingsiteSpice.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = db.Profiles.FirstOrDefault(p=>p.User.Id == currentUser.Id);
+            profile = db.Profiles.FirstOrDefault(p=>p.User.Id == currentUser.Id);
             if (profile == null)
             {
                 return RedirectToAction("Create");
             }
             return View(profile);
+
+            Profile storedProfile = db.Profiles.Where(p => p.User.Id == currentUser.Id).SingleOrDefault();
+
+            if (storedProfile == null)
+            {
+                storedProfile = profile;
+                profile.User = currentUser;
+                db.Profiles.Add(storedProfile);
+            }
+
+            storedProfile.Birthdate = profile.Birthdate;
+            storedProfile.City = profile.City;
+            storedProfile.EducationLevel = profile.EducationLevel;
+            storedProfile.Ethnicity = profile.Ethnicity;
+            storedProfile.Gender = profile.Gender;
+            storedProfile.Preference = profile.Preference;
+            storedProfile.Height = profile.Height;
+            storedProfile.Nickname = profile.Nickname;
+
+            if (imageUpload != null && imageUpload.ContentLength > 0)
+            {  // create directory
+                var uploadPath = Path.Combine(Server.MapPath("~/Content/Uploads"), storedProfile.ID.ToString());
+                Directory.CreateDirectory(uploadPath);
+
+                // create filename
+                string fileGuid = Guid.NewGuid().ToString();
+                string extension = Path.GetExtension(imageUpload.FileName);
+                string newFilename = fileGuid + extension;
+
+                // copy file
+                imageUpload.SaveAs(Path.Combine(uploadPath, newFilename));
+
+                // store in database
+                Picture pic = new Picture { Filename = newFilename };
+                storedProfile.Image = pic;
+                db.Pictures.Add(pic);
+            }
+            
+            db.SaveChanges();
+
+            return View(storedProfile);
         }
 
         // POST: Profiles/Edit/5
@@ -82,7 +124,7 @@ namespace DatingsiteSpice.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nickname,Gender,Preference,Birthdate,Length,Etnicity,City,EducationLevel,Interests,Image,PhotoAlbum")] Profile profile)
+        public ActionResult Edit([Bind(Include = "ID,Nickname,Gender,Preference,Birthdate,Height,Ethnicity,City,EducationLevel,Interests,Image,PhotoAlbum")] Profile profile)
         {
             if (ModelState.IsValid)
             {

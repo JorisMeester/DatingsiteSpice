@@ -96,11 +96,11 @@ namespace DatingsiteSpice.Models
         //[Display(Name = "Geboortedatum")]
         //public string Birtdate { get; set; }
 
-        //[Display(Name = "Lengte")]
-        //public double Length { get; set; }
+        //[Display(Name = "Height")]
+        //public double Height { get; set; }
 
-        //[Display(Name = "Etniciteit")]
-        //public EtnicityEnum Etnicity { get; set; }
+        //[Display(Name = "Ethniciteit")]
+        //public EthnicityEnum Ethnicity { get; set; }
 
         //[Display(Name = "Woonplaats")]
         //public string City { get; set; }
