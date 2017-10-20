@@ -18,10 +18,12 @@ namespace DatingsiteSpice.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Profiles
-        public ActionResult Index()
+        public ActionResult Search(ProfileSearchViewModel svm, string AgeRange)
         {
-            return View(db.Profiles.ToList());
+            return View();
         }
+
+
 
         // GET: Profiles/Details/5
         public ActionResult Details(int? id)
